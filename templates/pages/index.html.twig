@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Fragments' %}
+
+{% block body %}
+	<h1>Hello World !</h1>
+
+	{% for product in products %}
+		<a href="{{ path('product') }}">{{ product.title }},
+			{{ product.price }},
+			{{ product.stock }}</a>
+	{% endfor %}
+
+{% endblock %}
