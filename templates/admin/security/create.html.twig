@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Fragments - Admin | Se connecter' %}
+
+{% block body %}
+	<h1>Back office - Ajout</h1>
+
+    <form action="{{ path('security.admin.create') }}" method="post">
+        <label for="username">Nom d'utilisateur</label>
+        <input type="text" name="_username" id="username">
+
+        <label for="password">Mot de passe</label>
+        <input type="password" name="_password" id="password">
+
+        <input type="hidden" name="_token" value='{{ csrf_token("create") }}'/>
+
+        <button type="submit">Se connecter</button>
+    </form>
+
+{% endblock %}

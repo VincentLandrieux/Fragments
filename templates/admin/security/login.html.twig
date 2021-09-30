@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Fragments - Admin | Se connecter' %}
+
+{% block body %}
+	<h1>Back office - Se connecter</h1>
+
+    {% if error %}
+        <p>{{ error.messageKey | trans(error.messagedata, 'security') }}</p>
+    {% endif %}
+
+
+    <form action="{{ path('security.admin.login') }}" method="post">
+        <label for="username">Nom d'utilisateur</label>
+        <input type="text" name="_username" id="username" value="{{ last_username }}">
+
+        <label for="password">Mot de passe</label>
+        <input type="password" name="_password" id="password">
+
+        {# <input type="hidden" name="_csrf_token"
+        value="{{ csrf_token('authenticate') }}"> #}
+
+        <button type="submit">Se connecter</button>
+    </form>
+
+{% endblock %}

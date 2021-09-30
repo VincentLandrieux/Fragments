@@ -9,6 +9,19 @@ product:
 
 
 # Admin
+# Security
+security.admin.login:
+  path: /login
+  controller: App\Controller\Admin\SecurityController::login
+
+security.admin.logout:
+    path: /logout
+    methods: GET
+
+security.admin.create:
+    path: /admin/create-admin
+    controller: App\Controller\Admin\SecurityController::create
+
 # Product
 admin.product.index:
   path: /admin
