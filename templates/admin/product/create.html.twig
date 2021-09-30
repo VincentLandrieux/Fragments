@@ -2,8 +2,17 @@
 
 {% block title 'Fragments - Admin' %}
 
+{% block stylesheets %}
+	<link href="{{ asset('styles/admin/product_form.css') }}" rel="stylesheet"/>
+{% endblock %}
+
 {% block body %}
-	<h1>Back office</h1>
-	{{ include('admin/product/_form.html.twig', {form: form, button: 'Ajouter'}) }}
+	<header>
+        {{ include('admin/_header.html.twig', {title: 'Produits - Creation'}) }}
+    </header>
+
+	<main>
+		{{ include('admin/product/_form.html.twig', {form: form, button: 'Ajouter'}) }}
+	</main>
 
 {% endblock %}

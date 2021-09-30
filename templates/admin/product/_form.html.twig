@@ -1,25 +1,37 @@
-{{ form_start(form) }}
-
-{{ form_row(form.title, {
-	'row_attr': {'class': 'input-row'},
-	'label_attr': {'class': 'input_label'},
-	'attr': {'class': 'input_widget'},
-	'help_attr': {'class': 'input_help'}
+{{ form_start(form, {
+	'attr': {'class': 'form'}
 }) }}
 
-{{ form_row(form.price, {
-	'row_attr': {'class': 'input-row'},
-	'label_attr': {'class': 'input_label'},
-	'attr': {'class': 'input_widget'},
-	'help_attr': {'class': 'input_help'}
-}) }}
+	{{ form_row(form.title, {
+		'row_attr': {'class': 'form_row'},
+		'label_attr': {'class': 'form_label'},
+		'attr': {'class': 'form_widget'},
+		'help_attr': {'class': 'form_help'}
+	}) }}
 
-<div class="input-row">
-	{{ form_row(form.stock) }}
-</div>
+	{{ form_row(form.price, {
+		'row_attr': {'class': 'form_row'},
+		'label_attr': {'class': 'form_label'},
+		'attr': {'class': 'form_widget'},
+		'help_attr': {'class': 'form_help'}
+	}) }}
 
+	{{ form_row(form.stock, {
+		'row_attr': {'class': 'form_row'},
+		'label_attr': {'class': 'form_label'},
+		'attr': {'class': 'form_widget'},
+		'help_attr': {'class': 'form_help'}
+	}) }}
 
-{{ form_rest(form) }}
+	{{ form_row(form.available, {
+		'row_attr': {'class': 'form_row'},
+		'label_attr': {'class': 'form_label'},
+		'attr': {'class': 'form_widget'},
+		'help_attr': {'class': 'form_help'}
+	}) }}
 
-<button>{{ button|default('Enregistrer') }}</button>
+	<div class="form_row">
+		<button class="btn" type="submit">{{ button|default('Enregistrer') }}</button>
+	</div>
+
 {{ form_end(form) }}

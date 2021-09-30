@@ -2,26 +2,58 @@
 
 {% block title 'Fragments - Admin' %}
 
+{% block stylesheets %}
+	<link href="{{ asset('styles/admin/admin.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{# {% block javascripts %}
+	<script src="{{ asset('scripts/admin.js') }}" type="module" defer></script>
+{% endblock %} #}
+
 {% block body %}
-	<h1>Back office</h1>
+	<header>
+		{{ include('admin/_header.html.twig', {title: 'Produits'}) }}
+    </header>
 
-	{% for message in app.flashes('success') %}
-		<p>{{ message }}</p>
-	{% endfor %}
+	<main>
+        <div class="products">
+			{% for message in app.flashes('success') %}
+				<div class="alert">
+					<p>{{ message }}</p>
+				</div>
+			{% endfor %}
 
-	{% for product in products %}
-		<p>{{ product.title }},
-			{{ product.price }},
-			{{ product.stock }}
-		</p>
-		<a href="{{ path('admin.product.edit', {id: product.id}) }}">Editer</a>
-		<form method="post" action="{{ path('admin.product.delete', {id: product.id}) }}" onsubmit="return confirm('Supprimer ce produit ?')">
-			<input type="hidden" name="_method" value='DELETE'/>
-			<input type="hidden" name="_token" value='{{ csrf_token("delete" ~ product.id) }}'/>
-			<button>Supprimer</button>
-		</form>
-	{% endfor %}
+            <a href="{{ path('admin.product.create') }}" class="products_create btn btn-blue">Ajouter un produit</a>
 
-	<a href="{{ path('admin.product.create') }}">Ajouter un produit</a>
+            <div class="products_row-title">
+                <div class="products_datas">
+                    <p>Titre</p>
+                    <p>Prix €</p>
+                    <p>Stock</p>
+                </div>
+                <div>
+                    <p>Actions</p>
+                </div>
+            </div>
+
+			{% for product in products %}
+				<div class="products_row">
+					<div class="products_datas">
+						<p>{{ product.title }}</p>
+						<p>{{ product.price }}</p>
+						<p>{{ product.stock }}</p>
+					</div>
+					<div class="products_actions">
+						<a href="{{ path('admin.product.edit', {id: product.id}) }}" class="products_edit btn btn-blue">Editer</a>
+						<form method="post" action="{{ path('admin.product.delete', {id: product.id}) }}" onsubmit="return confirm('Supprimer ce produit ?')">
+							<input type="hidden" name="_method" value='DELETE'/>
+							<input type="hidden" name="_token" value='{{ csrf_token("delete" ~ product.id) }}'/>
+							<button class="products_delete btn btn-red">Supprimer</button>
+						</form>
+					</div>
+				</div>
+			{% endfor %}
+        </div>
+    </main>
 
 {% endblock %}

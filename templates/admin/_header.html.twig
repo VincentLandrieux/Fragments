@@ -1,0 +1,7 @@
+
+<h1 class="header_title">{{ title|default('Admin') }}</h1>
+
+<div class="header_nav">
+    <a class="header_nav_link" href="{{ path('admin.product.index') }}">Produits</a>
+    <a class="header_nav_link" href="{{ path('security.admin.logout') }}">Se déconnecter</a>
+</div>
