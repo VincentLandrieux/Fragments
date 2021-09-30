@@ -1,3 +1,4 @@
+# Index
 index:
   path: /
   controller: App\Controller\IndexController::index
@@ -5,3 +6,24 @@ index:
 product:
   path: /product
   controller: App\Controller\ProductController::index
+
+
+# Admin
+# Product
+admin.product.index:
+  path: /admin
+  controller: App\Controller\Admin\AdminProductController::index
+
+admin.product.create:
+  path: /admin/create
+  controller: App\Controller\Admin\AdminProductController::create
+
+admin.product.edit:
+  path: /admin/{id}
+  controller: App\Controller\Admin\AdminProductController::edit
+  methods: GET|POST
+
+admin.product.delete:
+  path: /admin/{id}
+  controller: App\Controller\Admin\AdminProductController::delete
+  methods: DELETE

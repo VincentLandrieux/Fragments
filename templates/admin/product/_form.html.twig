@@ -1,0 +1,25 @@
+{{ form_start(form) }}
+
+{{ form_row(form.title, {
+	'row_attr': {'class': 'input-row'},
+	'label_attr': {'class': 'input_label'},
+	'attr': {'class': 'input_widget'},
+	'help_attr': {'class': 'input_help'}
+}) }}
+
+{{ form_row(form.price, {
+	'row_attr': {'class': 'input-row'},
+	'label_attr': {'class': 'input_label'},
+	'attr': {'class': 'input_widget'},
+	'help_attr': {'class': 'input_help'}
+}) }}
+
+<div class="input-row">
+	{{ form_row(form.stock) }}
+</div>
+
+
+{{ form_rest(form) }}
+
+<button>{{ button|default('Enregistrer') }}</button>
+{{ form_end(form) }}

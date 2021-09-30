@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Fragments - Admin' %}
+
+{% block body %}
+	<h1>Back office</h1>
+
+	{% for message in app.flashes('success') %}
+		<p>{{ message }}</p>
+	{% endfor %}
+
+	{% for product in products %}
+		<p>{{ product.title }},
+			{{ product.price }},
+			{{ product.stock }}
+		</p>
+		<a href="{{ path('admin.product.edit', {id: product.id}) }}">Editer</a>
+		<form method="post" action="{{ path('admin.product.delete', {id: product.id}) }}" onsubmit="return confirm('Supprimer ce produit ?')">
+			<input type="hidden" name="_method" value='DELETE'/>
+			<input type="hidden" name="_token" value='{{ csrf_token("delete" ~ product.id) }}'/>
+			<button>Supprimer</button>
+		</form>
+	{% endfor %}
+
+	<a href="{{ path('admin.product.create') }}">Ajouter un produit</a>
+
+{% endblock %}

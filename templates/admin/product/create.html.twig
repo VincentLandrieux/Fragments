@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Fragments - Admin' %}
+
+{% block body %}
+	<h1>Back office</h1>
+	{{ include('admin/product/_form.html.twig', {form: form, button: 'Ajouter'}) }}
+
+{% endblock %}

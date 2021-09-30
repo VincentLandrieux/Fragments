@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @UniqueEntity("title", message = "Cette valeur existe déjà.")
  */
 class Product
 {
@@ -25,11 +28,13 @@ class Product
 
     /**
      * @ORM\Column(type="float", options={"default": 0})
+     * @Assert\GreaterThanOrEqual(0, message = "La valeur doit être >= 0.")
      */
     private $price = 0;
 
     /**
      * @ORM\Column(type="integer", options={"default": 0})
+     * @Assert\GreaterThanOrEqual(0, message = "La valeur doit être >= 0.")
      */
     private $stock = 0;
 
