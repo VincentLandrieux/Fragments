@@ -2,13 +2,68 @@
 
 {% block title 'Fragments' %}
 
-{% block body %}
-	<h1>Hello World !</h1>
+{% block stylesheets %}
+	<link href="{{ asset('styles/style.css') }}" rel="stylesheet"/>
+{% endblock %}
 
-	{% for product in products %}
-		<a href="{{ path('product') }}">{{ product.title }},
-			{{ product.price }},
-			{{ product.stock }}</a>
-	{% endfor %}
+{% block javascripts %}
+	<script src="{{ asset('scripts/script.js') }}" type="module" defer></script>
+{% endblock %}
+
+{% block body %}
+
+	<div class="order-menu closed">
+        <div class="order-menu_close"></div>
+
+        <div class="order-menu_container">
+            <div class="order-menu_item">
+                <p class="order-menu_item_title">Aucun article</p>
+            </div>
+        </div>
+
+        <div class="order-menu_valid-btn">Valider commande</div>
+    </div>
+    <header>
+        <a class="header_logo" href="/"></a>
+        <div class="header_nav">
+            <div class="header_nav_order">
+                <div class="header_nav_order_nb">
+                    <p class="header_nav_order_nb_text">0</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1><span></span>ragments</h1>
+            <h3>Boutique en ligne</h3>
+        </div>
+
+        <div class="products">
+            <div class="products_grid"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer_info">
+            <a class="footer_logo" href="/"></a>
+        </div>
+        <div class="footer_links">
+            <div class="footer_links_column">
+                <p class="footer_links_title">Site</p>
+                <a class="footer_links_item" href="">Panier</a>
+                <a class="footer_links_item" href="">A propos</a>
+                <a class="footer_links_item" href="">Contact</a>
+            </div>
+            <div class="footer_links_column">
+                <p class="footer_links_title">Admin</p>
+                <a class="footer_links_item" href="{{ path('admin.product.index') }}">Connexion</a>
+                <p class="footer_links_title">Lieu</p>
+                <p class="footer_links_item">Montpellier</p>
+                <p class="footer_links_item" href="">34000</p>
+            </div>
+        </div>
+    </footer>
 
 {% endblock %}
