@@ -168,6 +168,53 @@ main {
 .form_help{
   font-size: 0.8rem;
 }
+.form_label.required:after{
+  content: "*";
+}
+
+.form input[type=file]{
+  width: 0px;
+  height: 0px;
+  min-height: 0px;
+  opacity: 0;
+}
+.form_image{
+  position: relative;
+  width: 16rem;
+  height: 16rem;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+
+  background-image: var(--img-url);
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+.form_image:hover{
+  cursor: pointer;
+}
+.form_image_del{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-image: url(../../images/cross.svg);
+  mask-image: url(../../images/cross.svg);
+  background-color: #555555;
+}
+.form_image_del:hover {
+  cursor: pointer;
+  background-color: #eeeeee;
+}
 
 
 /*---Responsive---*/

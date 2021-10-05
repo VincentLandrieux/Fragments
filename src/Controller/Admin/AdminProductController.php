@@ -7,8 +7,11 @@ use App\Repository\ProductRepository;
 use App\Form\ProductType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminProductController extends AbstractController
 {
@@ -38,7 +41,7 @@ class AdminProductController extends AbstractController
         return $this->render('admin/product/index.html.twig', ['products' => $products]);
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request, SluggerInterface $slugger): Response
     {
         // create new product
         $product = new Product();
@@ -50,6 +53,29 @@ class AdminProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // image file
+            $imageFile = $form->get('image')->getData();
+
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
+
+                // Move the file to the directory where images are stored
+                try {
+                    $imageFile->move(
+                        $this->getParameter('products_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $product->setImgUrl($newFilename);
+            }
+
+            // save product
             $this->em->persist($product);
             $this->em->flush();
 
@@ -66,7 +92,7 @@ class AdminProductController extends AbstractController
         ]);
     }
 
-    public function edit(Int $id, Request $request): Response
+    public function edit(Int $id, Request $request, SluggerInterface $slugger): Response
     {
         // get product by id
         $product = $this->repository->find($id);
@@ -78,6 +104,35 @@ class AdminProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // set image file
+            $imageFile = $form->get('image')->getData();
+
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
+
+                // Move the file to the directory where images are stored
+                try {
+                    $imageFile->move(
+                        $this->getParameter('products_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $product->setImgUrl($newFilename);
+            } else {
+                // reset image
+                if ($product->getImgUrl() && $request->get('img_change')) {
+                    $product->setImgUrl(null);
+                }
+            }
+
+
+            // save product
             $this->em->flush();
 
             $this->addFlash('success', 'Produit modifié');

@@ -6,6 +6,10 @@
 	<link href="{{ asset('styles/admin/product_form.css') }}" rel="stylesheet"/>
 {% endblock %}
 
+{% block javascripts %}
+	<script src="{{ asset('scripts/product_form.js') }}" type="module" defer></script>
+{% endblock %}
+
 {% block body %}
 	<header>
         {{ include('admin/_header.html.twig', {title: 'Produits - Edition'}) }}

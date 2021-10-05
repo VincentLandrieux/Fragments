@@ -2,6 +2,10 @@
 	'attr': {'class': 'form'}
 }) }}
 
+	<div class="form_row">
+		<p class="form_help">* obligatoire</p>
+	</div>
+
 	{{ form_row(form.title, {
 		'row_attr': {'class': 'form_row'},
 		'label_attr': {'class': 'form_label'},
@@ -29,6 +33,39 @@
 		'attr': {'class': 'form_widget'},
 		'help_attr': {'class': 'form_help'}
 	}) }}
+
+	<div class="form_row">
+		{{ form_label(form.image, null, {
+			'label_attr': {'class': 'form_label'}
+		}) }}
+
+		{% if product.getImgUrl is empty %}
+			{{ form_label(form.image, null, {
+				'label': ' ',
+				'label_attr': {
+					'class': 'form_image'
+				}
+			}) }}
+		{% else %}
+			{{ form_label(form.image, null, {
+				'label': ' ',
+				'label_attr': {
+					'class': 'form_image',
+					'style': '--img-url: url("/images/products/' ~ product.imgUrl ~'")'
+				}
+			}) }}
+		{% endif %}
+		{{ form_errors(form.image) }}
+
+		{{ form_widget(form.image, {
+			'attr': {'class': 'form_widget'}
+		}) }}
+		{{ form_help(form.image, {
+			'help_attr': {'class': 'form_help'}
+		}) }}
+
+		<input id="product_image_change" type="hidden" name="img_change" value='false'/>
+	</div>
 
 	<div class="form_row">
 		<button class="btn" type="submit">{{ button|default('Enregistrer') }}</button>
